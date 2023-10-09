@@ -1,21 +1,25 @@
 package com.lechensque.graphql.demo.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class Book {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     private String title;
 
-    private Author author;
-    
-    
-    public Book(){}
+    @Column
+    private String author;
 
-    
+    public Book() {
+    }
 
     public Long getId() {
         return id;
@@ -33,24 +37,12 @@ public class Book {
         this.title = title;
     }
 
-
-
-    public Author getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-
-
-    public void setAuthor(Author author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
-
-
-
-
-   
-   
-
-   
 
 }
