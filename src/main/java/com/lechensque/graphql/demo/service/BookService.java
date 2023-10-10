@@ -1,6 +1,7 @@
 package com.lechensque.graphql.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public Book showBookById(Long id) {
-        return bookRepository.findById(id).orElseThrow();
+    public Optional<Book> findBook(Long id) {
+        return bookRepository.findById(id);
     }
 
     public Book updateBook(Long id, BookRecordDto bookRequest) {
@@ -29,10 +30,11 @@ public class BookService {
         if (bookRequest.title() != null) {
             bookFind.setTitle(bookRequest.title());
         }
-
-        if (bookRequest.author() != null) {
-            bookFind.setAuthor(bookRequest.author());
+        if (bookRequest.subString() != null) {
+            bookFind.setTitle(bookRequest.subString());
         }
+
+       
 
         return bookRepository.save(bookFind);
     }
@@ -43,12 +45,10 @@ public class BookService {
         bookRepository.delete(bookFind);
     }
 
-    public Book createBook(BookRecordDto bookRequest){
-        var bookModel = new Book();
-
-        BeanUtils.copyProperties(bookRequest, bookModel);
+    public Book createBook(Book book){
         
-        return bookRepository.save(bookModel);
+        
+        return bookRepository.save(book);
 
         
     }

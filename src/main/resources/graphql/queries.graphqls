@@ -1,0 +1,7 @@
+type Query {
+    findBook(id: ID!): Book
+}
+
+type Mutation {
+    createBook(book: BookInput!): Book!
+}
